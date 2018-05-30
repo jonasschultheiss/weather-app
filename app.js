@@ -7,3 +7,4 @@ request({
 }, (error, response, body) => {
     console.log(JSON.stringify(body, undefined, 2));
 });
+console.log();
