@@ -1,0 +1,30 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "some programm",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quest1onmark/weather-app.git"
+  },
+  "keywords": [
+    "weather",
+    "app",
+    "node.js",
+    "node",
+    "quest1onmark"
+  ],
+  "author": "Jonas 'quest1onmark' Schultheiss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quest1onmark/weather-app/issues"
+  },
+  "homepage": "https://github.com/quest1onmark/weather-app#readme",
+  "dependencies": {
+    "request": "^2.87.0",
+    "yargs": "^11.0.0"
+  }
+}
