@@ -1,6 +1,6 @@
 const yargs = require('yargs');
-const geocode = require('./geocode/geocode');
-const weather = require('./weather/weather');
+const axios = require('axios');
+const settings = require('./settings');
 
 const argv = yargs
   .options({
@@ -14,22 +14,19 @@ const argv = yargs
   .help()
   .alias('help', 'h').argv;
 
-geocode.geocodeAddress(argv.a, (errorMessage, results) => {
-  if (errorMessage) {
-    console.log(errorMessage);
-  } else {
-    weather.getWeather(results.lat, results.lng, (errorMessage, weatherResult) => {
-      if (errorMessage) {
-        console.log(errorMessage);
-      } else if (weatherResult.temperature !== weatherResult.apparentTemperature) {
-        console.log(
-          `weather for ${results.address.toLowerCase()}\nit's currently ${weatherResult.temperature}. it feels like ${
-            weatherResult.apparentTemperature
-          }`
-        );
-      } else {
-        console.log(`it's currently ${weatherResult.temperature}`);
-      }
-    });
-  }
-});
+axios
+  .get(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(argv.a)}&key=${settings.mapApiKey}`
+  )
+  .then(response => {
+    return axios
+      .get(
+        `https://api.darksky.net/forecast/${settings.weatherApiKey}/${response.data.results[0].geometry.lat},${
+          response.data.results[0].geometry.lng
+        }`
+      )
+      .then(response => {});
+  })
+  .catch(error => {
+    console.log(JSON.stringify(error, udnefined, 2));
+  });
